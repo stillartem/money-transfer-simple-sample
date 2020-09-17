@@ -1,0 +1,34 @@
+trikoder_oauth2:
+
+    authorization_server:
+        private_key: '%kernel.project_dir%/private.key'                 # Change this
+        private_key_passphrase: null                            # Passphrase of the private key, if any
+
+        encryption_key: '%env(string:OAUTH2_ENCRYPTION_KEY)%'   # (Optional) Change this
+
+        # How long the issued access token should be valid for.
+                # The value should be a valid interval: http://php.net/manual/en/dateinterval.construct.php#refsect1-dateinterval.construct-parameters
+        access_token_ttl:     PT1H
+
+        # How long the issued refresh token should be valid for.
+        # The value should be a valid interval: http://php.net/manual/en/dateinterval.construct.php#refsect1-dateinterval.construct-parameters
+        refresh_token_ttl:    P1M
+
+        # How long the issued auth code should be valid for.
+        # The value should be a valid interval: http://php.net/manual/en/dateinterval.construct.php#refsect1-dateinterval.construct-parameters
+        auth_code_ttl:        PT10M
+
+        enable_client_credentials_grant: false
+        enable_auth_code_grant: true
+
+
+    resource_server:
+        public_key: /var/oauth/public.key                       # Change this
+
+    persistence:
+        doctrine:
+          entity_manager:       default
+
+    exception_event_listener_priority: 10
+
+    role_prefix:          ROLE_OAUTH2_

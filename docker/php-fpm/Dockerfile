@@ -33,10 +33,9 @@ RUN apt-get update \
 
 WORKDIR /var/www/superproject/
 
+
 RUN if getent passwd www-data ; then  userdel -f www-data; fi && \
     if getent group www-data ; then groupdel www-data; fi && \
     groupadd -g ${GROUP_ID} www-data && \
     useradd -l -s /bin/bash -u ${USER_ID} -g www-data www-data && \
     chown --changes --silent --no-dereference --recursive  --from=33:33 ${USER_ID}:${GROUP_ID} /usr/local/bin/composer
-
-

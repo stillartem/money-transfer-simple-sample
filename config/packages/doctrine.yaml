@@ -25,5 +25,5 @@ doctrine:
             SocialTechCustomer:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Domain/SomeDomain/Entity'
-                prefix: 'App\Domain\SomeDomain\Entity'
+                dir: '%kernel.project_dir%/src/Domain/Payments/Entity'
+                prefix: 'App\Domain\Payments\Entity'

@@ -1,0 +1,16 @@
+security:
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        api_token:
+            pattern: ^/api/token$
+            security: false
+        api:
+            pattern: ^/payment-api
+            security: true
+            stateless: true
+            oauth2: true
+
+            # activate different ways to authenticate
