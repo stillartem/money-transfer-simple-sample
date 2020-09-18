@@ -15,5 +15,16 @@ services:
         tags: ['controller.service_arguments']
 
     App\Domain\:
-        resource: ../src/Domain/*/{Service,Repository,EventSubscriber}
+        resource: ../src/Domain/*/{Service,Repository,EventSubscriber,ParamConverter,Factory,ChainOfResponsibility}
+
+    App\Domain\Core\Listener\:
+        resource: ../src/Domain/Core/Listener
+        tags:
+            - { name: kernel.event_listener, event: trikoder.oauth2.user_resolve, method: onUserResolve }
+
+    App\DataFixtures\:
+        resource: ../src/DataFixtures/
+
+    App\Domain\Payments\ChainOfResponsibility\ValidatorHandlerInterface: '@App\Domain\Payments\ChainOfResponsibility\ValidatorHandler'
+
 

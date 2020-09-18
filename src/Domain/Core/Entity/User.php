@@ -6,15 +6,20 @@ use App\Domain\Payments\Entity\Wallet;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user")
+ * @ORM\Table(name="customer",
+ *    uniqueConstraints={
+ *        @UniqueConstraint(name="email", columns={"email"})
+ *    }
+ *     )
  */
-class User
+class User implements UserInterface
 {
-
     /**
      * @var int
      *
@@ -30,6 +35,13 @@ class User
      * @ORM\Column(type="string", nullable=false)
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $password;
 
 
     /**
@@ -58,7 +70,7 @@ class User
     /**
      * @var Wallet[]|Collection
      *
-     * @ORM\OneToMany(targetEntity="App\Domain\Payments\Entity\Wallet, mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Domain\Payments\Entity\Wallet", mappedBy="user", cascade={"persist"})
      */
     private $wallets;
 
@@ -72,7 +84,7 @@ class User
      * @param string $email
      * @return User
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
 
@@ -110,7 +122,7 @@ class User
      * @param string $clientSecret
      * @return User
      */
-    public function setClientSecret($clientSecret)
+    public function setClientSecret(string $clientSecret)
     {
         $this->clientSecret = $clientSecret;
 
@@ -134,7 +146,7 @@ class User
     }
 
     /**
-     * @param  Wallet $wallet
+     * @param Wallet $wallet
      * @return User
      */
     public function addWallet(Wallet $wallet)
@@ -166,5 +178,48 @@ class User
     public function getWallets()
     {
         return $this->wallets;
+    }
+
+    /**
+     * @param string $password
+     * @return User
+     */
+    public function setPassword(string $password): User
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_CUSTOMER'];
+    }
+
+    public function getSalt()
+    {
+        return '';
+    }
+
+    public function addRole(string $role)
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

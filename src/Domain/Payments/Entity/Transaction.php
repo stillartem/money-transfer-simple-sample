@@ -5,9 +5,8 @@ namespace App\Domain\Payments\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Domain\Payments\Repository\TransactionRepository")
  * @ORM\Table(name="transaction",
- *
  *  indexes={
  *          @ORM\Index(name="transaction_wallet_id", columns={"wallet_id"})
  *  }
@@ -15,6 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Transaction
 {
+    public const TYPE_COMMISSION = 'commission';
+    public const TYPE_TRANSFER = 'transfer';
+
     /**
      * @var int
      *
@@ -42,11 +44,18 @@ class Transaction
     private $transactionInitiator;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(type="float", nullable=false)
      */
     private $amount;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $type;
 
     /**
      * @var \DateTimeInterface
@@ -109,10 +118,10 @@ class Transaction
     }
 
     /**
-     * @param string $amount
+     * @param float $amount
      * @return Transaction
      */
-    public function setAmount($amount)
+    public function setAmount(float $amount)
     {
         $this->amount = $amount;
 
@@ -120,10 +129,28 @@ class Transaction
     }
 
     /**
-     * @return string
+     * @return float
      */
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return Transaction
+     */
+    public function setType(string $type): Transaction
+    {
+        $this->type = $type;
+        return $this;
     }
 }

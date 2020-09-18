@@ -22,8 +22,13 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            SocialTechCustomer:
+            Payments:
                 is_bundle: false
                 type: annotation
                 dir: '%kernel.project_dir%/src/Domain/Payments/Entity'
                 prefix: 'App\Domain\Payments\Entity'
+            Core:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Domain/Core/Entity'
+                prefix: 'App\Domain\Core\Entity'

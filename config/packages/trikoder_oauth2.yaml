@@ -8,11 +8,11 @@ trikoder_oauth2:
 
         # How long the issued access token should be valid for.
                 # The value should be a valid interval: http://php.net/manual/en/dateinterval.construct.php#refsect1-dateinterval.construct-parameters
-        access_token_ttl:     PT1H
+        access_token_ttl:     PT360H
 
         # How long the issued refresh token should be valid for.
         # The value should be a valid interval: http://php.net/manual/en/dateinterval.construct.php#refsect1-dateinterval.construct-parameters
-        refresh_token_ttl:    P1M
+        refresh_token_ttl:    P10M
 
         # How long the issued auth code should be valid for.
         # The value should be a valid interval: http://php.net/manual/en/dateinterval.construct.php#refsect1-dateinterval.construct-parameters
@@ -23,7 +23,7 @@ trikoder_oauth2:
 
 
     resource_server:
-        public_key: /var/oauth/public.key                       # Change this
+        public_key: '%kernel.project_dir%/public.key'                   # Change this
 
     persistence:
         doctrine:

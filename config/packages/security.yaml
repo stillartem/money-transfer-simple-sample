@@ -1,4 +1,15 @@
 security:
+    encoders:
+        # use your user class name here
+        App\Domain\Core\Entity\User:
+            algorithm: auto
+
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Domain\Core\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -13,4 +24,4 @@ security:
             stateless: true
             oauth2: true
 
-            # activate different ways to authenticate
+            # activate different ways to authenticate}
