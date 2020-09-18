@@ -10,7 +10,6 @@ services:
     volumes:
       - ./:/var/www/superproject
       - ./docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
-      - ./docker/local_supervisor:/etc/supervisor/conf.d
       - ./var/log:/var/log
 
   nginx:
