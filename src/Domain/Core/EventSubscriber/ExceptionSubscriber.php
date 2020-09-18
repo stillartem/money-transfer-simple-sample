@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ExceptionSubscriber implements EventSubscriberInterface
 {
@@ -100,6 +101,10 @@ class ExceptionSubscriber implements EventSubscriberInterface
             case $e instanceof PaymentException:
                 $code = $e->getMessage();
                 $status = Response::HTTP_BAD_REQUEST;
+                break;
+            case $e instanceof AccessDeniedHttpException:
+                $code = $e->getMessage();
+                $status = Response::HTTP_FORBIDDEN;
                 break;
             default:
                 $code = $e->getMessage();

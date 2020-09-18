@@ -69,6 +69,7 @@ class PaymentController extends AbstractController
      */
     public function getBalance(Wallet $wallet, BalanceService $balanceService)
     {
+
         return $this->json($balanceService->getBalanceForWallet($wallet)->asArray());
     }
 }
